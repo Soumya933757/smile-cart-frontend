@@ -11,6 +11,11 @@ const Carousel = ({ imageUrls, title }) => {
   const handleNext = () =>
     setCurrentIndex(prevIndex => (prevIndex + 1) % imageUrls.length);
 
+  const handlePrevious = () =>
+    setCurrentIndex(
+      prevIndex => (prevIndex - 1 + imageUrls.length) % imageUrls.length
+    );
+
   useEffect(() => {
     timerRef.current = setInterval(handleNext, 3000);
 
@@ -29,10 +34,7 @@ const Carousel = ({ imageUrls, title }) => {
           className="shrink-0 focus-within:ring-0 hover:bg-transparent"
           icon={Left}
           style="text"
-          onClick={() => {
-            handleNext();
-            resetTimer();
-          }}
+          onClick={handlePrevious}
         />
         <img
           alt={title}
@@ -43,7 +45,10 @@ const Carousel = ({ imageUrls, title }) => {
           className="shrink-0 focus-within:ring-0 hover:bg-transparent"
           icon={Right}
           style="text"
-          onClick={handleNext}
+          onClick={() => {
+            handleNext();
+            resetTimer();
+          }}
         />
       </div>
       <div className="flex space-x-1">
